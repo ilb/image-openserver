@@ -4,11 +4,25 @@ MAINTAINER "Vjacheslav Borisov <slavb18@gmail.com>"
 LABEL description="image server php7apache"
 
 COPY setup /tmp/setup
+COPY rpm /tmp/rpm
 
 # install apache2 using zypper
 RUN zypper -n update \
+&& zypper -n install xhtml-dtd \
+&& zypper -n install mathml-dtd \
+&& zypper -n install curl \
+&& zypper -n install tar \
+&& zypper -n install gzip \
+&& zypper -n install make \
+&& zypper -n --no-gpg-checks install /tmp/rpm/libmcrypt-2.5.8-lp152.1.1.x86_64.rpm \
+&& zypper -n --no-gpg-checks install /tmp/rpm/libmcrypt-devel-2.5.8-lp152.1.1.x86_64.rpm \
 && zypper -n install apache2 \
+&& zypper -n install apache2-mod_php7 \
+# add php and modules
 && zypper -n install php7 \
+&& zypper -n install php7-devel \
+&& zypper -n install php7-sqlite \
+&& zypper -n install php7-firebird \
 && zypper -n install php7-bcmath \
 && zypper -n install php7-bz2 \
 && zypper -n install php7-ctype \
@@ -39,16 +53,25 @@ RUN zypper -n update \
 && zypper -n install php7-mysql \
 && zypper -n install php7-curl \
 && zypper -n install php7-xsl \
-&& zypper -n install xhtml-dtd \
-&& zypper -n install mathml-dtd \
 && zypper -n install php7-tidy \
-&& zypper -n install php7-mbstring \
-&& zypper -n install apache2-mod_php7 \
 && zypper -n install php7-posix \
+&& zypper -n install php7-phar \
+&& zypper -n install php7-opcache \
+&& zypper -n install php7-mbstring \
+&& zypper -n --no-gpg-checks install /tmp/rpm/php7-imap-7.4.6-lp152.2.19.1.x86_64.rpm \
 && zypper -n install git \
-&& cd /tmp/setup && ./install.sh \
+&& cd /tmp/setup \
+# dbase
+&& ./install_dbase.sh \
+# mailparse
+&& ./install_mailparse.sh \
+# mcrypt
+&& ./install_mcrypt.sh \
+&& ./install.sh \
 # apache enable modules
 && a2enmod php7 \
+&& rm -r /tmp/setup \
+&& rm -r /tmp/rpm \
 # create welcome file for apache service
 && echo "Welcome to ilbru/openlamp-core, copy your apps /srv/www/htdocs" > /srv/www/htdocs/index.html
 
