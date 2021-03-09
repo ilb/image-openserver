@@ -13,3 +13,5 @@ cd /usr/share/php
 
 git clone https://github.com/ilb/phplib.git .phplib-1 && ln -s .phplib-1/classes phplib-1
 git clone https://github.com/ilb/happymeal.git .happymeal-1 && ln -s .happymeal-1/classes happymeal-1
+
+ln -s /usr/share/php/.happymeal-1/happymeal /usr/bin/happymeal-1
