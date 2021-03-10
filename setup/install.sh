@@ -8,6 +8,7 @@ ln -vs ../config.php
 cd /etc/php7/cli
 ln -vs ../config.php
 
+mkdir /var/log/php
 mkdir /usr/share/php
 cd /usr/share/php 
 
