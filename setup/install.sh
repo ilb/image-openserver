@@ -18,5 +18,5 @@ ln -s /usr/share/php/.happymeal-1/happymeal /usr/bin/happymeal-1
 
 mkdir /var/log/php
 cd /var/log/php
-echo "" > /var/log/php/php_error.log
+touch php_error.log
 chmod -R 777 /var/log/php
