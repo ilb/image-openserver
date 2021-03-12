@@ -3,6 +3,8 @@ FROM opensuse/leap:15.2
 MAINTAINER "Vjacheslav Borisov <slavb18@gmail.com>"
 LABEL description="image server php7apache"
 
+WORKDIR /srv/www/htdocs
+
 COPY setup /tmp/setup
 COPY rpm /tmp/rpm
 
